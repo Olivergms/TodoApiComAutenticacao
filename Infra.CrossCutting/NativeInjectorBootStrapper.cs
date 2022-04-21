@@ -1,6 +1,7 @@
-﻿using Infra.Data.SqlServer.Contexto;
+﻿using Dominio.Interfaces;
+using Infra.Data.SqlServer.Contexto;
+using Infra.Data.SqlServer.Repositorios;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace Infra.CrossCutting
 {
@@ -14,6 +15,11 @@ namespace Infra.CrossCutting
         private void Contexto(IServiceCollection services)
         {
             services.AddDbContext<AppContexto>();
+        }
+
+        private void RegistraRepositorio(IServiceCollection services)
+        {
+            services.AddScoped<ITodoRepositorio, TodoRepositorio>();
         }
     }
 }
