@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Infra.Data.SqlServer\Infra.Data.SqlServer.csproj" />
+    <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
 </Project>
