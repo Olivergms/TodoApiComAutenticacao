@@ -1,6 +1,5 @@
 ﻿using Dominio.Entidades;
 using FluentResults;
-using System.Threading.Tasks;
 
 namespace Dominio.Interfaces
 {

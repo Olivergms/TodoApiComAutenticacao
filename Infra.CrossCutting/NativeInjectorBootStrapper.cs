@@ -2,6 +2,8 @@
 using Infra.Data.SqlServer.Contexto;
 using Infra.Data.SqlServer.Repositorios;
 using Microsoft.Extensions.DependencyInjection;
+using Services.Interfaces;
+using Services.services;
 
 namespace Infra.CrossCutting
 {
@@ -9,17 +11,23 @@ namespace Infra.CrossCutting
     {
         public static void Configure(IServiceCollection services)
         {
-
+            ConfigurarContexto(services);
+            RegistraRepositorio(services);
         }
 
-        private void Contexto(IServiceCollection services)
+        private static void ConfigurarContexto(IServiceCollection services)
         {
             services.AddDbContext<AppContexto>();
         }
 
-        private void RegistraRepositorio(IServiceCollection services)
+        private static void RegistraRepositorio(IServiceCollection services)
         {
             services.AddScoped<ITodoRepositorio, TodoRepositorio>();
+        }
+
+        private static void RegistrarServicos(IServiceCollection services)
+        {
+            services.AddScoped<ITodoServico, TodoServico>();
         }
     }
 }

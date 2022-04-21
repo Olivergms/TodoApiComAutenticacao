@@ -2,11 +2,9 @@
 using Dominio.Interfaces;
 using FluentResults;
 using Infra.Data.SqlServer.Contexto;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Infra.Data.SqlServer.Repositorios
 {
@@ -53,7 +51,7 @@ namespace Infra.Data.SqlServer.Repositorios
                 _context.SaveChanges();
 
                 return Result.Ok();
-                
+
             }
             catch (Exception ex)
             {
@@ -97,7 +95,7 @@ namespace Infra.Data.SqlServer.Repositorios
         {
             try
             {
-               return _context.Todos.ToList();
+                return _context.Todos.ToList();
 
             }
             catch (Exception ex)
