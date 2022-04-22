@@ -37,5 +37,22 @@ namespace TodoApi.Controllers
                 return StatusCode(StatusCodes.Status404NotFound, ex.Message);
             }
         }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<Todo>> ObterTodos()
+        {
+            try
+            {
+                var result = _todoServico.ObterTodos();
+
+                return result.IsSuccess ? StatusCode(StatusCodes.Status200OK, result.Value)
+                    : StatusCode(StatusCodes.Status400BadRequest, result.Errors.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+            }
+        }
     }
 }
