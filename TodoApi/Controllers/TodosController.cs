@@ -1,12 +1,11 @@
 ﻿using Dominio.Entidades;
-using FluentResults;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services.Dtos;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace TodoApi.Controllers
 {
@@ -28,8 +27,8 @@ namespace TodoApi.Controllers
             {
                 var result = _todoServico.ObtemPorId(id);
 
-                return result.IsSuccess ? StatusCode(StatusCodes.Status200OK, result.Value) 
-                    : StatusCode(StatusCodes.Status400BadRequest,result.Errors.FirstOrDefault());
+                return result.IsSuccess ? StatusCode(StatusCodes.Status200OK, result.Value)
+                    : StatusCode(StatusCodes.Status400BadRequest, result.Errors.FirstOrDefault());
             }
             catch (Exception ex)
             {
@@ -46,6 +45,24 @@ namespace TodoApi.Controllers
                 var result = _todoServico.ObterTodos();
 
                 return result.IsSuccess ? StatusCode(StatusCodes.Status200OK, result.Value)
+                    : StatusCode(StatusCodes.Status400BadRequest, result.Errors.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+            }
+        }
+
+        [HttpPost]
+
+        public ActionResult CriarAtividade([FromBody] CriarTodoDto todo)
+        {
+            try
+            {
+                var result = _todoServico.CriaTodo(todo);
+
+                return result.IsSuccess ? StatusCode(StatusCodes.Status201Created)
                     : StatusCode(StatusCodes.Status400BadRequest, result.Errors.FirstOrDefault());
             }
             catch (Exception ex)

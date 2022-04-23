@@ -1,27 +1,28 @@
-﻿using Dominio.Entidades;
+﻿using AutoMapper;
+using Dominio.Entidades;
 using Dominio.Interfaces;
 using FluentResults;
+using Services.Dtos;
 using Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.services
 {
     public class TodoServico : ITodoServico
     {
         private readonly ITodoRepositorio _todoRepositorio;
+        private readonly IMapper _mapper;
 
-        public TodoServico(ITodoRepositorio todo)
+        public TodoServico(ITodoRepositorio todo, IMapper mapper)
         {
             _todoRepositorio = todo;
+            _mapper = mapper;
         }
 
         public Result AtualizaTodo(int id, Todo entidade)
         {
-            if(id != entidade.Id)
+            if (id != entidade.Id)
             {
                 return Result.Fail("o id informado é diferente do objeto");
             }
@@ -42,9 +43,11 @@ namespace Services.services
                 .WithError(result.Errors.FirstOrDefault());
         }
 
-        public Result CriaTodo(Todo entidade)
+        public Result CriaTodo(CriarTodoDto entidade)
         {
-            var result = _todoRepositorio.Inserir(entidade);
+            var todo = _mapper.Map<Todo>(entidade);
+
+            var result = _todoRepositorio.Inserir(todo);
 
             return result.IsSuccess ? Result.Ok() : Result
                 .Fail("Não foi possivel registrar atividade")

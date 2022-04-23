@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Services.AutoMapper;
+using TodoApi.Configurations;
 
 namespace TodoApi
 {
@@ -23,9 +25,10 @@ namespace TodoApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodoApi", Version = "v1" });
             });
-
+            services.AutoMapperConfiguration();
             //registra as dependencias
             NativeInjectorBootStrapper.Configure(services);
+            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
