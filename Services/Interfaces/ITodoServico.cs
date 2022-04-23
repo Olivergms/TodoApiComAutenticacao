@@ -7,8 +7,8 @@ namespace Services.Interfaces
 {
     public interface ITodoServico
     {
-        public Result<Todo> ObtemPorId(int id);
-        public Result<IEnumerable<Todo>> ObterTodos();
+        public Result<LerTodoDto> ObtemPorId(int id);
+        public Result<IEnumerable<LerTodoDto>> ObterTodos();
         public Result CriaTodo(CriarTodoDto entidade);
         public Result CompletaAtividade(int id, bool completa);
         public Result AtualizaTodo(int id, Todo entidade);

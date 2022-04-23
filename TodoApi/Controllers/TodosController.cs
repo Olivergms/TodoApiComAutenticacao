@@ -38,7 +38,7 @@ namespace TodoApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Todo>> ObterTodos()
+        public ActionResult<IEnumerable<LerTodoDto>> ObterTodos()
         {
             try
             {

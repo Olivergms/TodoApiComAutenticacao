@@ -54,18 +54,27 @@ namespace Services.services
                 .WithError(result.Errors.FirstOrDefault());
         }
 
-        public Result<Todo> ObtemPorId(int id)
+        public Result<LerTodoDto> ObtemPorId(int id)
         {
             var result = _todoRepositorio.ObterPorId(id);
 
-            return result != null ? Result.Ok(result) : Result.Fail("Não foi possivel obter atividade");
+            var todo = _mapper.Map<LerTodoDto>(result);
+
+            return result != null ? Result.Ok(todo) : Result.Fail("Não foi possivel obter atividade");
         }
 
-        public Result<IEnumerable<Todo>> ObterTodos()
+        public Result<IEnumerable<LerTodoDto>> ObterTodos()
         {
             var result = _todoRepositorio.ObterTodos();
 
-            return result != null ? Result.Ok(result) : Result.Fail("Não foi possivel obter atividades");
+            var todos = new List<LerTodoDto>(); 
+
+            foreach (var item in result)
+            {
+                todos.Add(_mapper.Map<LerTodoDto>(item));
+            }
+            ;
+            return result != null ? Result.Ok(todos.AsEnumerable<LerTodoDto>()) : Result.Fail("Não foi possivel obter atividades");
         }
 
         public Result RemoveAtividade(int id)
