@@ -82,7 +82,7 @@ namespace Services.services
             var result = _todoRepositorio.Remover(id);
 
             return result.IsSuccess ? Result.Ok() : Result
-                .Fail("Não foi possivel atualizar atividade")
+                .Fail("Não foi possivel localizar atividade")
                 .WithError(result.Errors.FirstOrDefault());
         }
     }

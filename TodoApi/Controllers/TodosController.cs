@@ -55,7 +55,6 @@ namespace TodoApi.Controllers
         }
 
         [HttpPost]
-
         public ActionResult CriarAtividade([FromBody] CriarTodoDto todo)
         {
             try
@@ -63,6 +62,23 @@ namespace TodoApi.Controllers
                 var result = _todoServico.CriaTodo(todo);
 
                 return result.IsSuccess ? StatusCode(StatusCodes.Status201Created)
+                    : StatusCode(StatusCodes.Status400BadRequest, result.Errors.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+            }
+        }
+
+        [HttpDelete("{id:int}")]
+        public ActionResult RemoverAtividade(int id)
+        {
+            try
+            {
+                var result = _todoServico.RemoveAtividade(id);
+
+                return result.IsSuccess ? StatusCode(StatusCodes.Status200OK)
                     : StatusCode(StatusCodes.Status400BadRequest, result.Errors.FirstOrDefault());
             }
             catch (Exception ex)
