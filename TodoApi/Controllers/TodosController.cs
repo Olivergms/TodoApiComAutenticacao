@@ -103,5 +103,21 @@ namespace TodoApi.Controllers
                 return StatusCode(StatusCodes.Status404NotFound, ex.Message);
             }
         }
+
+        [HttpPatch("{id:int}")]
+        public ActionResult CompletaAtividade(int id, bool completa)
+        {
+            try
+            {
+                var result = _todoServico.CompletaAtividade(id, completa);
+
+                return result.IsSuccess ? StatusCode(StatusCodes.Status200OK)
+                    : StatusCode(StatusCodes.Status400BadRequest, result.Errors.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+            }
+        }
     }
 }

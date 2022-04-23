@@ -22,6 +22,7 @@ namespace Infra.Data.SqlServer.Repositorios
             try
             {
                 var data = _context.Todos.FirstOrDefault(e => e.Id == id);
+                if (data == null) return Result.Fail("Registro não encontrado");
 
                 entidade.UpdatedAt = DateTime.Now;
                 entidade.CreatedAt = data.CreatedAt;
@@ -45,6 +46,9 @@ namespace Infra.Data.SqlServer.Repositorios
             try
             {
                 var data = _context.Todos.FirstOrDefault(e => e.Id == id);
+
+                if (data == null) return Result.Fail("Registro não encontrado");
+
                 data.Complete = completa;
                 data.UpdatedAt = DateTime.Now;
 
@@ -110,6 +114,9 @@ namespace Infra.Data.SqlServer.Repositorios
             try
             {
                 var todo = _context.Todos.FirstOrDefault(e => e.Id == id);
+
+                if (todo == null) return Result.Fail("Registro não encontrado");
+
                 _context.Remove(todo);
                 _context.SaveChanges();
 
