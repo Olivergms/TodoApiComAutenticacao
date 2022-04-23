@@ -20,14 +20,16 @@ namespace Services.services
             _mapper = mapper;
         }
 
-        public Result AtualizaTodo(int id, Todo entidade)
+        public Result AtualizaTodo(int id, AtualizaTodoDto entidade)
         {
             if (id != entidade.Id)
             {
                 return Result.Fail("o id informado é diferente do objeto");
             }
 
-            var result = _todoRepositorio.Atualiza(id, entidade);
+            var todo = _mapper.Map<Todo>(entidade);
+
+            var result = _todoRepositorio.Atualiza(id, todo);
 
             return result.IsSuccess ? Result.Ok() : Result
                 .Fail("Não foi possivel atualizar entidade")

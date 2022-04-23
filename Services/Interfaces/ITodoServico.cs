@@ -11,7 +11,7 @@ namespace Services.Interfaces
         public Result<IEnumerable<LerTodoDto>> ObterTodos();
         public Result CriaTodo(CriarTodoDto entidade);
         public Result CompletaAtividade(int id, bool completa);
-        public Result AtualizaTodo(int id, Todo entidade);
+        public Result AtualizaTodo(int id, AtualizaTodoDto entidade);
         public Result RemoveAtividade(int id);
     }
 }

@@ -15,6 +15,7 @@ namespace Services.AutoMapper
         {
             CreateMap<CriarTodoDto, Todo>();
             CreateMap<Todo, LerTodoDto>();
+            CreateMap<AtualizaTodoDto, Todo>();
         }
     }
 }

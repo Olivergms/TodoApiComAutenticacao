@@ -87,5 +87,21 @@ namespace TodoApi.Controllers
                 return StatusCode(StatusCodes.Status404NotFound, ex.Message);
             }
         }
+
+        [HttpPut("{id:int}")]
+        public ActionResult AtualizaAtividade(int id, [FromBody]AtualizaTodoDto todo)
+        {
+            try
+            {
+                var result = _todoServico.AtualizaTodo(id, todo);
+
+                return result.IsSuccess ? StatusCode(StatusCodes.Status200OK)
+                    : StatusCode(StatusCodes.Status400BadRequest, result.Errors.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+            }
+        }
     }
 }
