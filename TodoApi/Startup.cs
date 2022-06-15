@@ -12,6 +12,7 @@ namespace TodoApi
 {
     public class Startup
     {
+        private readonly string MyAllowSpecificOrigins = "my_todo";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -19,6 +20,19 @@ namespace TodoApi
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
+            #region Configuração Cors
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                    builder => 
+                    {
+                        builder.WithOrigins("*")
+                        .AllowAnyHeader()
+                        .AllowAnyHeader();
+                    });
+               
+            });
+            #endregion
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -43,6 +57,8 @@ namespace TodoApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            //usando cors
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
